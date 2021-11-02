@@ -1,11 +1,11 @@
 
 #include <iostream>
+#include <time.h>
 using namespace std;
-
 class Player {
 private:
 	int id;
-	string name, rank;
+	string name, rank = "norank";
 	int points = 0;
 public:
 	void setId(int ID) {
@@ -19,6 +19,24 @@ public:
 		cin >> name;
 		cout << endl << "**************" << endl;
 
+	}
+	void ShowPlayerInfo() {
+		cout << "**************" << endl << "Players id: " << id << "\nName: " << name << "\nRank: " << rank << "\n**************" << endl;
+		
+	}
+	bool GetPlayerByName(string name) {
+		if (this->name == name) {
+			bool NameMatch = true;
+			return NameMatch;
+		}
+		else return 0;
+	}
+	bool GetPlayerByID(int id) {
+		if (this->id == id) {
+			bool IDmatch = true;
+			return IDmatch;
+		}
+		else return 0;
 	}
 	
 };
@@ -36,3 +54,11 @@ public:
 	}
 
 };
+class Team {
+private:
+	string name = "Blue";
+	Player a, b, c, d, e;
+public:
+
+};
+
