@@ -12,6 +12,9 @@ public:
 		id = ID;
 		return id;
 	}
+	int getId() {
+		return id;
+	}
 	void setname(string name) {
 		this->name = name;
 	}
@@ -22,7 +25,7 @@ public:
 
 	}
 	void ShowPlayerInfo() {
-		cout << "**************" << endl << "Players id: " << id << "\nName: " << name << "\nRank: " << rank << "\n**************" << endl;
+		cout << "**************" << endl << "Players id: " << id << "\nName: " << name << "\nRank: " << rank << endl;
 		
 	}
 	bool GetPlayerByName(string name) {
@@ -51,9 +54,11 @@ public:
 		this->hp = hp;
 		this->damage = damage;
 		name = name1;
-
 	}
-	int GetHeroId(int ID) {
+	int getHeroId() {
+		return id;
+	}
+	int SetHeroId(int ID) {
 		id = ID;
 		return id;
 	}
@@ -71,18 +76,33 @@ public:
 		}
 		else return 0;
 	}
+	void ShowHeroInfo() {
+		cout << "Heroes id: " << id << "\nClass is: " << name << "\nHp is: " << hp << "\nDamage is: " << damage << "\n**************" << endl;
+
+	}
 };
 class PlayerHero {
 private:
 	Player p;
 	Hero h;
+	int id = p.getId();
 public:
 	void MatchingHeroPlayer(Player a, Hero b) {
 		p = a;
 		h = b;
 	}
+	void View() {
+		p.ShowPlayerInfo();
+		h.ShowHeroInfo();
+	}
 };
 class Team {
 private:
-	PlayerHero b[5];
+	PlayerHero a[10];
+public:
+	void GenerateTeam() {
+		for (int i = 0; i < 10; i++) {
+
+		}
+	}
 };
