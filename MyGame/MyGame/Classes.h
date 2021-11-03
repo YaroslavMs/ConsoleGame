@@ -4,10 +4,10 @@
 using namespace std;
 class Player {
 private:
-	int id;
 	string name, rank = "norank";
 	int points = 0;
 public:
+	int id;
 	int setId(int ID) {
 		id = ID;
 		return id;
@@ -49,7 +49,7 @@ private:
 	int id, hp, damage;
 	string name;
 public:
-	void CreateHero(int id, int hp, int damage, string name1) {
+	void CreateHero(int hp, int damage, string name1) {
 		this->id = id;
 		this->hp = hp;
 		this->damage = damage;
@@ -80,29 +80,60 @@ public:
 		cout << "Heroes id: " << id << "\nClass is: " << name << "\nHp is: " << hp << "\nDamage is: " << damage << "\n**************" << endl;
 
 	}
+
 };
 class PlayerHero {
 private:
 	Player p;
 	Hero h;
-	int id = p.getId();
+	int id;
 public:
-	void MatchingHeroPlayer(Player a, Hero b) {
+	void MatchingHeroPlayer(Player a, Hero b, int id) {
 		p = a;
 		h = b;
+		this->id = id;
 	}
 	void View() {
 		p.ShowPlayerInfo();
 		h.ShowHeroInfo();
 	}
+	int GetID() {
+		return id;
+	}
 };
-class Team {
+class TeamManager {
 private:
-	PlayerHero a[10];
+	PlayerHero a[10], team1[5], team2[5];
 public:
-	void GenerateTeam() {
+	void GetPlayerHero(PlayerHero g, int i) {
+		a[i] = g;
+	}
+	void GenerateTeams() {
 		for (int i = 0; i < 10; i++) {
-
+			if (a[i].GetID() == 1)	team1[0] = a[i];
+			if (a[i].GetID() == 2)	team1[1] = a[i];
+			if (a[i].GetID() == 3)	team1[2] = a[i];
+			if (a[i].GetID() == 4)	team1[3] = a[i];
+			if (a[i].GetID() == 5)	team1[4] = a[i];
+			if (a[i].GetID() == 6)	team2[0] = a[i];
+			if (a[i].GetID() == 7)	team2[1] = a[i];
+			if (a[i].GetID() == 8)	team2[2] = a[i];
+			if (a[i].GetID() == 9)	team2[3] = a[i];
+			if (a[i].GetID() == 10)	team2[4] = a[i];
 		}
+	}
+	void GetTeamInfo1() {
+		cout << "**************" << "\nTeam1:" << endl;
+		for (int i = 0; i < 5; i++) {
+			team1[i].View();
+		}
+
+	}
+	void GetTeamInfo2() {
+		cout << "**************" << "\nTeam2:" << endl;
+		for (int i = 0; i < 5; i++) {
+			team2[i].View();
+		}
+
 	}
 };
