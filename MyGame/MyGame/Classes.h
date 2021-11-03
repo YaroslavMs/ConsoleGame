@@ -8,8 +8,9 @@ private:
 	string name, rank = "norank";
 	int points = 0;
 public:
-	void setId(int ID) {
+	int setId(int ID) {
 		id = ID;
+		return id;
 	}
 	void setname(string name) {
 		this->name = name;
@@ -52,13 +53,36 @@ public:
 		name = name1;
 
 	}
-
+	int GetHeroId(int ID) {
+		id = ID;
+		return id;
+	}
+	bool GetHeroByName(string name) {
+		if (this->name == name) {
+			bool NameMatch = true;
+			return NameMatch;
+		}
+		else return 0;
+	}
+	bool GetHeroByID(int id) {
+		if (this->id == id) {
+			bool IDmatch = true;
+			return IDmatch;
+		}
+		else return 0;
+	}
+};
+class PlayerHero {
+private:
+	Player p;
+	Hero h;
+public:
+	void MatchingHeroPlayer(Player a, Hero b) {
+		p = a;
+		h = b;
+	}
 };
 class Team {
 private:
-	string name = "Blue";
-	Player a, b, c, d, e;
-public:
-
+	PlayerHero b[5];
 };
-

@@ -8,6 +8,7 @@ int main()
     Player a, b, c, d, e, f, g, h, i, j;
     Hero h1, h2, h3, h4, h5, h6, h7, h8, h9, h10;
     string bot1, bot2, bot3, bot4, bot5, bot6, bot7, bot8, bot9, bot10;
+    PlayerHero ph1, ph2, ph3, ph4, ph5, ph6, ph7, ph8, ph9, ph10;
     bot1 = "BOT James";
     bot2 = "BOT Jacob";
     bot3 = "BOT Frank";
@@ -172,5 +173,45 @@ int main()
         cout << "Invalid number. Skipping..." << endl;
     }
 aftercreating:;
+    //Randomising player's and hero's ids
+    const int k = 10;
+    int m[k];
+
+    for (int i = 0; i < k; i++)
+    {
+    a: m[i] = 1 + rand() % k;
+        for (int j = 0; j < i; j++)
+            if (m[j] == m[i]) goto a;
+    }
+   a.setId(m[0]);
+   b.setId(m[1]);
+   c.setId(m[2]);
+   d.setId(m[3]);
+   e.setId(m[4]);
+   f.setId(m[5]);
+   g.setId(m[6]);
+   h.setId(m[7]);
+   i.setId(m[8]);
+   j.setId(m[9]);
+   int v[k];
+
+   for (int i = 0; i < k; i++)
+   {
+   b: v[i] = 1 + rand() % k;
+       for (int j = 0; j < i; j++)
+           if (v[j] == v[i]) goto b;
+   }
+   h1.GetHeroId(v[0]);
+   h2.GetHeroId(v[1]);
+   h3.GetHeroId(v[2]);
+   h4.GetHeroId(v[3]);
+   h5.GetHeroId(v[4]);
+   h6.GetHeroId(v[5]);
+   h7.GetHeroId(v[6]);
+   h8.GetHeroId(v[7]);
+   h9.GetHeroId(v[8]);
+   h10.GetHeroId(v[9]);
+
+  
 
 }
