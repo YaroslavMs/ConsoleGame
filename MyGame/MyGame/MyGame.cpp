@@ -10,6 +10,7 @@ int main()
     string bot1, bot2, bot3, bot4, bot5, bot6, bot7, bot8, bot9, bot10;
     TeamManager a;
     PlayerHero ph[10];
+    Session s1, s2, s3, s4, s5;
     bot1 = "BOT James";
     bot2 = "BOT Jacob";
     bot3 = "BOT Frank";
@@ -36,7 +37,7 @@ int main()
     h[3].CreateHero(200, 5, "Tank");
     h[4].CreateHero(50, 50, "Sniper");
     h[5].CreateHero(40, 60, "Mage");
-    h[6].CreateHero(35, 70, "Higher Mage");
+    h[6].CreateHero(35, 75, "Higher Mage");
     h[7].CreateHero(80, 35, "Shooter");
     h[8].CreateHero(20, 120, "Dark sorcerrer");
     h[9].CreateHero(70, 15, "Weapon carrier");
@@ -81,6 +82,7 @@ aftercreating:;
    for (int i = 0; i < 10; i++) {
        h[i].SetHeroId(v[i]);
    }
+   //Combining heroes with players using ID
    for (int i = 0; i < 10; i++) {
        for (int j = 0; j < 10; j++) {
            if (p[i].getId() == h[j].getHeroId()) {
@@ -88,12 +90,15 @@ aftercreating:;
            }
        }
    }
+   //Generating Teams
    for (int i = 0; i < 10; i++) {
        a.GetPlayerHero(ph[i], i);
    }
    a.GenerateTeams();
    a.GetTeamInfo1();
    a.GetTeamInfo2();
-
-
+   a.TeamOne();
+   a.TeamTwo();
+   a.CalculateWinner();
+   s1.GetTeamManager(a);
 }

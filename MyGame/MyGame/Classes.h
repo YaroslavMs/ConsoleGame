@@ -2,6 +2,7 @@
 #include <iostream>
 #include <time.h>
 using namespace std;
+//Player class
 class Player {
 private:
 	string name, rank = "norank";
@@ -44,13 +45,13 @@ public:
 	}
 	
 };
+//Hero Class
 class Hero {
 private:
 	int id, hp, damage;
 	string name;
 public:
 	void CreateHero(int hp, int damage, string name1) {
-		this->id = id;
 		this->hp = hp;
 		this->damage = damage;
 		name = name1;
@@ -61,6 +62,12 @@ public:
 	int SetHeroId(int ID) {
 		id = ID;
 		return id;
+	}
+	int HP() {
+		return hp;
+	}
+	int DMG() {
+		return damage;
 	}
 	bool GetHeroByName(string name) {
 		if (this->name == name) {
@@ -82,16 +89,19 @@ public:
 	}
 
 };
+//Hero + Player using Id
 class PlayerHero {
 private:
 	Player p;
 	Hero h;
-	int id;
+	int id, hp, dmg;
 public:
 	void MatchingHeroPlayer(Player a, Hero b, int id) {
 		p = a;
 		h = b;
 		this->id = id;
+		hp = b.HP();
+		dmg = b.DMG();
 	}
 	void View() {
 		p.ShowPlayerInfo();
@@ -100,10 +110,20 @@ public:
 	int GetID() {
 		return id;
 	}
+	int HP() {
+		return hp;
+	}
+	int DMG() {
+		return dmg;
+	}
 };
+//Team Manager class
 class TeamManager {
 private:
 	PlayerHero a[10], team1[5], team2[5];
+	int hp1Final, hp2Final;
+	int Team1HP = 0, Team1DMG = 0, Team2HP = 0, Team2DMG = 0;
+	bool winner;
 public:
 	void GetPlayerHero(PlayerHero g, int i) {
 		a[i] = g;
@@ -121,7 +141,7 @@ public:
 			if (a[i].GetID() == 9)	team2[3] = a[i];
 			if (a[i].GetID() == 10)	team2[4] = a[i];
 		}
-	}
+	};
 	void GetTeamInfo1() {
 		cout << "**************" << "\nTeam1:" << endl;
 		for (int i = 0; i < 5; i++) {
@@ -136,4 +156,41 @@ public:
 		}
 
 	}
+	void TeamOne() {
+		for (int i = 0; i < 5; i++) {
+			Team1HP += team1[i].HP();
+			Team1DMG += team1[i].DMG();
+		}
+	}
+	void TeamTwo() {
+		for (int i = 0; i < 5; i++) {
+			Team2HP += team2[i].HP();
+			Team2DMG += team2[i].DMG();
+		}
+	}
+	PlayerHero CalculateWinner() {
+		hp1Final = Team1HP - Team2DMG;
+	    hp2Final = Team2HP - Team1DMG;
+		if (hp1Final > hp2Final) {
+			return team1[5];
+
+		}
+		if (hp2Final > hp1Final) {
+			return team2[5];
+		}
+		
+	}
+	
+};
+class Session {
+	TeamManager a;
+public:
+	void GetTeamManager(TeamManager b) {
+		a = b;
+	}
+	void SessionInfo() {
+		a.GetTeamInfo1();
+		cout << "**************" << "\nGame session:" << "\nWinner team: ";
+	}
+
 };
