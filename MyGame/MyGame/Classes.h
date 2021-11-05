@@ -5,10 +5,10 @@ using namespace std;
 //Player class
 class Player {
 private:
-	string name, rank = "norank";
-	int points = 0;
-public:
+	string name;
+	int rank = 0;
 	int id;
+public:
 	int setId(int ID) {
 		id = ID;
 		return id;
@@ -42,6 +42,12 @@ public:
 			return IDmatch;
 		}
 		else return 0;
+	}
+	void rankWin() {
+		rank += 25;
+	}
+	void rankLose() {
+		rank -= 25;
 	}
 	
 };
@@ -116,6 +122,12 @@ public:
 	int DMG() {
 		return dmg;
 	}
+	void addRank() {
+		p.rankWin();
+	}
+	void SubtractRank() {
+		p.rankLose();
+	}
 };
 //Team Manager class
 class TeamManager {
@@ -143,14 +155,14 @@ public:
 		}
 	};
 	void GetTeamInfo1() {
-		cout << "**************" << "\nTeam1:" << endl;
+		cout << "\n\n**************" << "\nTeam1:" << endl;
 		for (int i = 0; i < 5; i++) {
 			team1[i].View();
 		}
 
 	}
 	void GetTeamInfo2() {
-		cout << "**************" << "\nTeam2:" << endl;
+		cout << "\n\n**************" << "\nTeam2:" << endl;
 		for (int i = 0; i < 5; i++) {
 			team2[i].View();
 		}
@@ -168,15 +180,23 @@ public:
 			Team2DMG += team2[i].DMG();
 		}
 	}
-	PlayerHero CalculateWinner() {
+	bool CalculateWinner() {
+		bool team1win;
 		hp1Final = Team1HP - Team2DMG;
 	    hp2Final = Team2HP - Team1DMG;
 		if (hp1Final > hp2Final) {
-			return team1[5];
-
+			for (int i = 0; i < 5; i++) {
+				team1[i].addRank();
+				team2[i].SubtractRank();
+			}
+			return 1;
 		}
-		if (hp2Final > hp1Final) {
-			return team2[5];
+		else if (hp2Final > hp1Final) {
+			for (int i = 0; i < 5; i++) {
+				team2[i].addRank();
+				team1[i].SubtractRank();
+			}
+			return 0;
 		}
 		
 	}
@@ -188,9 +208,24 @@ public:
 	void GetTeamManager(TeamManager b) {
 		a = b;
 	}
-	void SessionInfo() {
-		a.GetTeamInfo1();
-		cout << "**************" << "\nGame session:" << "\nWinner team: ";
+	void SessionInfo(int i) {
+		cout << "\n\n\n\n**************" << "\nGame session " << i + 1 <<": " << "\nWinner team: " << endl;
+		if (a.CalculateWinner() == 1) a.GetTeamInfo1(); else a.GetTeamInfo2();
+		cout << "**************" << "\nLoser team: " << endl;
+		if (a.CalculateWinner() == 1) a.GetTeamInfo2(); else a.GetTeamInfo1();
+	}
+
+};
+class GameManager {
+	Session s[5];
+public:
+	void GetSession(Session b, int i) {
+		s[i] = b;
+	}
+	void SessionsList() {
+		for (int i = 0; i < 5; i++) {
+			s[i].SessionInfo(i);
+		}
 	}
 
 };

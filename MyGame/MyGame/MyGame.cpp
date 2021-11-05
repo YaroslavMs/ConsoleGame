@@ -8,9 +8,11 @@ int main()
     Player p[10];
     Hero h[10];
     string bot1, bot2, bot3, bot4, bot5, bot6, bot7, bot8, bot9, bot10;
-    TeamManager a;
+    TeamManager a[5];
     PlayerHero ph[10];
-    Session s1, s2, s3, s4, s5;
+    Session s[5];
+    GameManager mngr;
+    int ses = 0;
     bot1 = "BOT James";
     bot2 = "BOT Jacob";
     bot3 = "BOT Frank";
@@ -34,7 +36,7 @@ int main()
     h[0].CreateHero(50, 55, "Young Sorcerrer");
     h[1].CreateHero(100, 30, "Warrior");
     h[2].CreateHero(120, 25, "Fighter");
-    h[3].CreateHero(200, 5, "Tank");
+    h[3].CreateHero(200, 5, "Giant");
     h[4].CreateHero(50, 50, "Sniper");
     h[5].CreateHero(40, 60, "Mage");
     h[6].CreateHero(35, 75, "Higher Mage");
@@ -42,6 +44,7 @@ int main()
     h[8].CreateHero(20, 120, "Dark sorcerrer");
     h[9].CreateHero(70, 15, "Weapon carrier");
     //creating players
+start:;
     for (int i = 0; i < 10; i++) {
         int sw;
         cout << "**************\n" << "Do you wish to add player?\n1.Yes\n2.No\n" << "**************" << endl;
@@ -58,6 +61,17 @@ int main()
         }
     }
 aftercreating:;
+    //Starting session
+    int st;
+    cout << "Are you ready to play?\n1.Yes\n2.No. I want to change players" << endl;
+    cin >> st;
+    if (st == 1) cout << "Initialising game session..." << endl;
+    else if (st == 2) {
+        cout << "Player creation is restarted" << endl;
+        goto start;
+    }
+    else if (st != 2 && st != 1)cout << "Invalid option. Game session will be started anyway" << endl;
+sessionbegin:;
     //Randomising player's and hero's ids
     const int k = 10;
     int m[k];
@@ -92,13 +106,21 @@ aftercreating:;
    }
    //Generating Teams
    for (int i = 0; i < 10; i++) {
-       a.GetPlayerHero(ph[i], i);
+       a[ses].GetPlayerHero(ph[i], i);
    }
-   a.GenerateTeams();
-   a.GetTeamInfo1();
-   a.GetTeamInfo2();
-   a.TeamOne();
-   a.TeamTwo();
-   a.CalculateWinner();
-   s1.GetTeamManager(a);
+  
+   a[ses].GenerateTeams();
+   //session
+   a[ses].TeamOne();
+   a[ses].TeamTwo();
+   a[ses].CalculateWinner();
+   s[ses].GetTeamManager(a[ses]);
+   s[ses].SessionInfo(ses);
+   mngr.GetSession(s[ses], ses);
+   if (ses < 5) {
+       ses++;
+    goto sessionbegin;
+   }
+   mngr.SessionsList();
+  
 }
