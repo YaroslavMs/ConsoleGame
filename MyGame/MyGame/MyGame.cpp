@@ -3,6 +3,7 @@
 
 int main()
 {
+    
     //default settings
     srand(time(0));
     Player p[10];
@@ -12,6 +13,7 @@ int main()
     PlayerHero ph[10];
     Session s[5];
     GameManager mngr;
+  
     int ses = 0;
     bot1 = "BOT James";
     bot2 = "BOT Jacob";
@@ -67,15 +69,14 @@ start:;
 aftercreating:;
 
     //Starting session
-    int st;
-    cout << "Are you ready to play?\n1.Yes\n2.No. I want to change players" << endl;
-    cin >> st;
+    int st = mngr.PerformGameSession();
     if (st == 1) cout << "Initialising game session..." << endl;
     else if (st == 2) {
         cout << "Player creation is restarted" << endl;
         goto start;
     }
     else if (st != 2 && st != 1)cout << "Invalid option. Game session will be started anyway" << endl;
+
 sessionbegin:;
 
     //Randomising player's and hero's ids
@@ -176,7 +177,7 @@ sessionbegin:;
        if (p[i].Points() == 100)
            p[i].setRank("King");
        if (p[i].Points() == 75)
-           p[i].setRank("Earl");
+           p[i].setRank("King");
        if (p[i].Points() == 50)
            p[i].setRank("Nobleman");
        if (p[i].Points() == 25)
@@ -194,12 +195,10 @@ sessionbegin:;
        if (p[i].Points() == -125)
            p[i].setRank("WOW. Just wow");    
    }
+  //results of all 5 games
    cout << "\n\n\n" << "Final results" << endl;
    for (int i = 0; i < 10; i++) {
        p[i].ShowPlayerInfo();
    }
-
-
-
 
 }

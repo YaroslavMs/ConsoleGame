@@ -1,4 +1,4 @@
 ﻿  MyGame.cpp
-D:\ConsoleGame\ConsoleGame\MyGame\MyGame\MyGame.cpp(7,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\ConsoleGame\ConsoleGame\MyGame\MyGame\MyGame.cpp(8,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 D:\ConsoleGame\ConsoleGame\MyGame\MyGame\Classes.h(197): warning C4715: 'TeamManager::CalculateWinner': not all control paths return a value
   MyGame.vcxproj -> D:\ConsoleGame\ConsoleGame\MyGame\Debug\MyGame.exe

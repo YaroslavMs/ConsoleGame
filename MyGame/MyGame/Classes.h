@@ -7,7 +7,7 @@ class Player {
 private:
 	string name, rank;
 	int points = 0;
-	int id;
+	int id = 0;
 public:
 	int setId(int ID) {
 		id = ID;
@@ -26,7 +26,7 @@ public:
 
 	}
 	void ShowPlayerInfo() {
-		cout << "**************" << endl << "\nName: " << name << "\nRank: " << rank << endl;
+		cout << "**************" << endl << "\nName: " << name << "\nRank: " << rank << "\nPoints: " << points << endl;
 		
 	}
 	bool GetPlayerByName(string name) {
@@ -63,7 +63,7 @@ public:
 //Hero Class
 class Hero {
 private:
-	int id, hp, damage;
+	int id = 0, hp = 0, damage = 0;
 	string name;
 public:
 	void CreateHero(int hp, int damage, string name1) {
@@ -99,7 +99,7 @@ public:
 		else return 0;
 	}
 	void ShowHeroInfo() {
-		cout << "Heroes id: " << id << "\nClass is: " << name << "\nHp is: " << hp << "\nDamage is: " << damage << "\n**************" << endl;
+		cout << "\nClass is: " << name << "\nHp is: " << hp << "\nDamage is: " << damage << "\n**************" << endl;
 
 	}
 
@@ -109,7 +109,7 @@ class PlayerHero {
 private:
 	Player p;
 	Hero h;
-	int id, hp, dmg;
+	int id = 0, hp = 0, dmg = 0;
 public:
 	void MatchingHeroPlayer(Player a, Hero b, int id) {
 		p = a;
@@ -136,7 +136,7 @@ public:
 class TeamManager {
 private:
 	PlayerHero a[10], team1[5], team2[5];
-	int hp1Final, hp2Final;
+	int hp1Final = 0, hp2Final = 0;
 	int Team1HP = 0, Team1DMG = 0, Team2HP = 0, Team2DMG = 0;
 	bool winner;
 public:
@@ -201,14 +201,14 @@ class Session {
 	TeamManager a;
 	
 public:
-	int sessionwinner;
+	int sessionwinner = 0;
 	void GetTeamManager(TeamManager b) {
 		a = b;
 	}
 	void SessionInfo(int team1win, int i) {
 		
 		if (team1win == 2) {
-			cout << "**************" << "Draw" << endl;
+			cout << "**************" << "\nDraw" << endl;
 			a.GetTeamInfo1(); a.GetTeamInfo2();
 		}
 		else {
@@ -239,6 +239,12 @@ public:
 		for (int i = 0; i < 5; i++) {
 			s[i].SessionInfo(s[i].sessionwinner, i);
 		}
+	}
+	int PerformGameSession() {
+		int create;
+		cout << "Perform game session that consists of 5 games?\n1.Yes\n2.No. I want to change players" << endl;
+		cin >> create;
+		return create;
 	}
 
 };
