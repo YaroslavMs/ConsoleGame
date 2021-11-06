@@ -1,5 +1,4 @@
 ﻿  MyGame.cpp
-C:\ConsoleGame\ConsoleGame\MyGame\MyGame\Classes.h(184,8): warning C4101: 'team1win': unreferenced local variable
-C:\ConsoleGame\ConsoleGame\MyGame\MyGame\MyGame.cpp(7,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\ConsoleGame\ConsoleGame\MyGame\MyGame\Classes.h(202): warning C4715: 'TeamManager::CalculateWinner': not all control paths return a value
-  MyGame.vcxproj -> C:\ConsoleGame\ConsoleGame\MyGame\Debug\MyGame.exe
+D:\ConsoleGame\ConsoleGame\MyGame\MyGame\MyGame.cpp(7,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\ConsoleGame\ConsoleGame\MyGame\MyGame\Classes.h(197): warning C4715: 'TeamManager::CalculateWinner': not all control paths return a value
+  MyGame.vcxproj -> D:\ConsoleGame\ConsoleGame\MyGame\Debug\MyGame.exe

@@ -5,8 +5,8 @@ using namespace std;
 //Player class
 class Player {
 private:
-	string name;
-	int rank = 0;
+	string name, rank;
+	int points = 0;
 	int id;
 public:
 	int setId(int ID) {
@@ -26,7 +26,7 @@ public:
 
 	}
 	void ShowPlayerInfo() {
-		cout << "**************" << endl << "Players id: " << id << "\nName: " << name << "\nRank: " << rank << endl;
+		cout << "**************" << endl << "\nName: " << name << "\nRank: " << rank << endl;
 		
 	}
 	bool GetPlayerByName(string name) {
@@ -44,10 +44,19 @@ public:
 		else return 0;
 	}
 	void rankWin() {
-		rank += 25;
+		points =points + 25;
 	}
 	void rankLose() {
-		rank -= 25;
+		points =points - 25;
+	}
+	void setPoints(int rank) {
+		this->points = rank;
+	}
+	void setRank(string rank) {
+		this->rank = rank;
+	}
+	int Points() {
+		return points;
 	}
 	
 };
@@ -122,12 +131,6 @@ public:
 	int DMG() {
 		return dmg;
 	}
-	void addRank() {
-		p.rankWin();
-	}
-	void SubtractRank() {
-		p.rankLose();
-	}
 };
 //Team Manager class
 class TeamManager {
@@ -180,39 +183,46 @@ public:
 			Team2DMG += team2[i].DMG();
 		}
 	}
-	bool CalculateWinner() {
-		bool team1win;
+	int CalculateWinner() {
 		hp1Final = Team1HP - Team2DMG;
 	    hp2Final = Team2HP - Team1DMG;
 		if (hp1Final > hp2Final) {
-			for (int i = 0; i < 5; i++) {
-				team1[i].addRank();
-				team2[i].SubtractRank();
-			}
 			return 1;
 		}
-		else if (hp2Final > hp1Final) {
-			for (int i = 0; i < 5; i++) {
-				team2[i].addRank();
-				team1[i].SubtractRank();
-			}
+		else if (hp1Final < hp2Final) {
 			return 0;
 		}
-		
+		else if(hp2Final == hp1Final)
+			return 2;
 	}
 	
 };
 class Session {
 	TeamManager a;
+	
 public:
+	int sessionwinner;
 	void GetTeamManager(TeamManager b) {
 		a = b;
 	}
-	void SessionInfo(int i) {
-		cout << "\n\n\n\n**************" << "\nGame session " << i + 1 <<": " << "\nWinner team: " << endl;
-		if (a.CalculateWinner() == 1) a.GetTeamInfo1(); else a.GetTeamInfo2();
-		cout << "**************" << "\nLoser team: " << endl;
-		if (a.CalculateWinner() == 1) a.GetTeamInfo2(); else a.GetTeamInfo1();
+	void SessionInfo(int team1win, int i) {
+		
+		if (team1win == 2) {
+			cout << "**************" << "Draw" << endl;
+			a.GetTeamInfo1(); a.GetTeamInfo2();
+		}
+		else {
+			cout << "\n\n\n\n**************" << "\nGame session " << i + 1 << ": " << "\nWinner team: " << endl;
+			if (team1win == 1) a.GetTeamInfo1(); else a.GetTeamInfo2();
+			cout << "**************" << "\nLoser team: " << endl;
+			if (team1win == 0) a.GetTeamInfo1(); else a.GetTeamInfo2();		
+		}
+	}
+	void SessionWinner(int win1) {
+		sessionwinner = win1;
+	}
+	int SessionWin() {
+		return sessionwinner;
 	}
 
 };
@@ -222,9 +232,12 @@ public:
 	void GetSession(Session b, int i) {
 		s[i] = b;
 	}
+	void GetSessionWin(int winner, int i) {
+		s[i].sessionwinner = winner;
+	}
 	void SessionsList() {
 		for (int i = 0; i < 5; i++) {
-			s[i].SessionInfo(i);
+			s[i].SessionInfo(s[i].sessionwinner, i);
 		}
 	}
 
