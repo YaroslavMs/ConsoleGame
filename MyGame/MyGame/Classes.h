@@ -19,38 +19,32 @@ public:
 	void setname(string name) {
 		this->name = name;
 	}
-	void createplayer() {
-		cout << "Creating new player..." << endl << "**************" << endl << "Your name is: ";
-		cin >> name;
-		cout << endl << "**************" << endl;
-
+	int createplayer() {
+		int sw;
+		cout << "**************\n" << "Do you wish to add player?\n1.Yes\n2.No\n" << "**************" << endl;
+		cin >> sw;
+		if (sw == 1) {
+			cout << "Creating new player..." << endl << "**************" << endl << "Your name is: ";
+			cin >> name;
+			cout << endl << "**************" << endl;
+		}
+		if (sw != 1 && sw != 2)
+			cout << "Invalid number. Skipping..." << endl;
+		if (sw == 2) {
+			cout << "Skipping players creation..." << endl;
+		}
+		
+		return sw;
 	}
 	void ShowPlayerInfo() {
 		cout << "**************" << endl << "\nName: " << name << "\nRank: " << rank << "\nPoints: " << points << endl;
 		
 	}
-	bool GetPlayerByName(string name) {
-		if (this->name == name) {
-			bool NameMatch = true;
-			return NameMatch;
-		}
-		else return 0;
-	}
-	bool GetPlayerByID(int id) {
-		if (this->id == id) {
-			bool IDmatch = true;
-			return IDmatch;
-		}
-		else return 0;
-	}
-	void rankWin() {
+	void PointsWin() {
 		points =points + 25;
 	}
-	void rankLose() {
+	void PointsLose() {
 		points =points - 25;
-	}
-	void setPoints(int rank) {
-		this->points = rank;
 	}
 	void setRank(string rank) {
 		this->rank = rank;
@@ -84,20 +78,6 @@ public:
 	int DMG() {
 		return damage;
 	}
-	bool GetHeroByName(string name) {
-		if (this->name == name) {
-			bool NameMatch = true;
-			return NameMatch;
-		}
-		else return 0;
-	}
-	bool GetHeroByID(int id) {
-		if (this->id == id) {
-			bool IDmatch = true;
-			return IDmatch;
-		}
-		else return 0;
-	}
 	void ShowHeroInfo() {
 		cout << "\nClass is: " << name << "\nHp is: " << hp << "\nDamage is: " << damage << "\n**************" << endl;
 
@@ -105,7 +85,7 @@ public:
 
 };
 //Hero + Player using Id
-class PlayerHero {
+class Team {
 private:
 	Player p;
 	Hero h;
@@ -135,16 +115,13 @@ public:
 //Team Manager class
 class TeamManager {
 private:
-	PlayerHero a[10], team1[5], team2[5];
+	Team a[10], team1[5], team2[5];
 	int hp1Final = 0, hp2Final = 0;
 	int Team1HP = 0, Team1DMG = 0, Team2HP = 0, Team2DMG = 0;
 	bool winner;
 public:
-	void GetPlayerHero(PlayerHero g, int i) {
-		a[i] = g;
-	}
-	void GenerateTeams() {
-		for (int i = 0; i < 10; i++) {
+	void GenerateTeams(Team g, int i) {
+		    a[i] = g;
 			if (a[i].GetID() == 1)	team1[0] = a[i];
 			if (a[i].GetID() == 2)	team1[1] = a[i];
 			if (a[i].GetID() == 3)	team1[2] = a[i];
@@ -155,21 +132,18 @@ public:
 			if (a[i].GetID() == 8)	team2[2] = a[i];
 			if (a[i].GetID() == 9)	team2[3] = a[i];
 			if (a[i].GetID() == 10)	team2[4] = a[i];
-		}
-	};
+	}
 	void GetTeamInfo1() {
 		cout << "\n\n**************" << "\nTeam1:" << endl;
 		for (int i = 0; i < 5; i++) {
 			team1[i].View();
 		}
-
 	}
 	void GetTeamInfo2() {
 		cout << "\n\n**************" << "\nTeam2:" << endl;
 		for (int i = 0; i < 5; i++) {
 			team2[i].View();
 		}
-
 	}
 	void TeamOne() {
 		for (int i = 0; i < 5; i++) {
@@ -194,19 +168,19 @@ public:
 		}
 		else if(hp2Final == hp1Final)
 			return 2;
-	}
-	
+	}	
 };
+
 class Session {
 	TeamManager a;
-	
+
 public:
+	bool exist;
 	int sessionwinner = 0;
 	void GetTeamManager(TeamManager b) {
 		a = b;
 	}
-	void SessionInfo(int team1win, int i) {
-		
+	void SessionInfo(int team1win, int i) {		
 		if (team1win == 2) {
 			cout << "**************" << "\nDraw" << endl;
 			a.GetTeamInfo1(); a.GetTeamInfo2();
@@ -218,32 +192,31 @@ public:
 			if (team1win == 0) a.GetTeamInfo1(); else a.GetTeamInfo2();		
 		}
 	}
-	void SessionWinner(int win1) {
-		sessionwinner = win1;
-	}
-	int SessionWin() {
-		return sessionwinner;
-	}
-
 };
+
 class GameManager {
 	Session s[5];
 public:
-	void GetSession(Session b, int i) {
+	void GetSession(Session b, int i, int winner) {
 		s[i] = b;
-	}
-	void GetSessionWin(int winner, int i) {
 		s[i].sessionwinner = winner;
+		s[i].exist = true;
 	}
 	void SessionsList() {
 		for (int i = 0; i < 5; i++) {
+		if(s[i].exist == true)
 			s[i].SessionInfo(s[i].sessionwinner, i);
 		}
 	}
 	int PerformGameSession() {
-		int create;
-		cout << "Perform game session that consists of 5 games?\n1.Yes\n2.No. I want to change players" << endl;
+		int create;	
+		cout << "Perform game session that consists of 5 games?\n1.Yes\n2.No." << endl;
 		cin >> create;
+		if (create == 1) cout << "Initialising game session..." << endl;
+		else if (create == 2) {
+	   cout << "Ok" << endl;
+		}
+		else if (create != 2 && create != 1)cout << "Invalid option. Game session will be started anyway" << endl;		
 		return create;
 	}
 
